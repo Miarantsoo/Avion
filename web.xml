@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
-    <display-name>Test WEB</display-name>
+    <display-name>Application temoin: avion</display-name>
 
     <servlet>
         <servlet-name>mainController</servlet-name>
@@ -12,10 +12,18 @@
             <param-name>controllerChecker</param-name>
             <param-value>controller</param-value>
         </init-param>
+        <init-param>
+            <param-name>role</param-name>
+            <param-value>ROLE_USER</param-value>
+        </init-param>
+        <init-param>
+            <param-name>authentication</param-name>
+            <param-value>AUTH</param-value>
+        </init-param>
         <multipart-config>
-            <max-file-size>10485760</max-file-size> <!-- 10MB -->
-            <max-request-size>20971520</max-request-size> <!-- 20MB -->
-            <file-size-threshold>5242880</file-size-threshold> <!-- 5MB -->
+            <max-file-size>10485760</max-file-size>
+            <max-request-size>20971520</max-request-size>
+            <file-size-threshold>5242880</file-size-threshold>
         </multipart-config>
     </servlet>
     <servlet-mapping>
