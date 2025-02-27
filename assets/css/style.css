@@ -1,0 +1,84 @@
+.footer {
+    transition: all 0.3s ease-in-out;
+    background-color: #cdcdcd;
+}
+
+.animated-link {
+    opacity: 0;
+    position: relative;
+    color: #5f5f5f;
+    text-decoration: none;
+    font-size: 3.5rem;
+    transition: all 0.6s ease-in-out;
+}
+
+.animated-link::before {
+    position: absolute;
+    content: attr(data-text);
+    color: #202020;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+.animated-link:hover::before {
+    width: 100%;
+}
+
+#toggleButton {
+    cursor: pointer;
+    color: #202020;
+}
+
+#linksContainer {
+    display: none;
+    overflow: hidden;
+    max-height: 0;
+    transition: all 0.5s ease-in-out;
+}
+
+#linksContainer.show {
+    max-height: 500px;
+}
+
+#linksContainer.show .animated-link {
+    opacity: 1;
+}
+
+.btn-avion {
+    width: 100%;
+    background-color: #202020;
+    color: #cdcdcd;
+}
+
+.btn-confirmation {
+    width: 100%;
+    background-color: #36d156;
+    color: #fff;
+}
+
+.btn-avion:hover {
+    background-color: #5f5f5f;
+    color: #cdcdcd;
+}
+
+.modification {
+    color: #202020;
+    text-decoration: none;
+}
+
+#lottie {
+    width: 95%;
+    height: 100%;
+}
+
+.login-container {
+    height: 100dvh;
+}
+
+.padding-login {
+    padding-top: 10%;
+}

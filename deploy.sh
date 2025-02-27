@@ -50,7 +50,7 @@ javac -d "$temp/WEB-INF/classes" -cp "$classpath" *.java
 
 # Copy configuration files
 cp "$src/application.properties" "$temp/WEB-INF/classes/" 2>/dev/null || true
-cp "$src/web.xml" "$temp/WEB-INF/" 2>/dev/null || true
+cp "$webxml" "$temp/WEB-INF/" 2>/dev/null || true
 
 # Remove temporary source directory
 rm -rf "$temp_src"
