@@ -310,7 +310,7 @@ public class GenericRepo<T> {
         } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new SQLException("Erreur lors de l'accès aux champs de l'objet", e);
         } catch (SQLException e) {
-            throw new SQLException("Possible missmatch des colonnes, verifier votre base insertion", e);
+            throw new SQLException("Possible missmatch des colonnes, verifier votre base insertion "+ e.getMessage());
         }
     }
 

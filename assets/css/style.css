@@ -60,6 +60,10 @@
     color: #fff;
 }
 
+.btn-confirmation:hover {
+    background-color: #2fbb4f;
+}
+
 .btn-avion:hover {
     background-color: #5f5f5f;
     color: #cdcdcd;

@@ -44,7 +44,7 @@ CREATE TABLE prix_vol (
     id varchar(255) primary key,
     id_vol varchar(255) not null,
     id_type_siege varchar(255) not null,
-    prix int not null,
+    prix decimal(11, 2) not null,
     foreign key (id_vol) references vol(id),
     foreign key (id_type_siege) references type_siege(id)
 );
@@ -77,9 +77,15 @@ CREATE TABLE utilisateur (
 CREATE TABLE reservation (
     id varchar(255) primary key,
     id_vol varchar(255) not null,
+    id_utilisateur varchar(255) not null,
     id_type_siege varchar(255) not null,
+    prix decimal(11, 2) not null,
     date_reservation timestamp not null,
+    passport_name varchar(255) not null,
+    passport bytea,
+    etat int,
     foreign key (id_vol) references vol(id),
+    foreign key (id_utilisateur) references utilisateur(id),
     foreign key (id_type_siege) references type_siege(id)
 );
 

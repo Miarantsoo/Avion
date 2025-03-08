@@ -91,4 +91,23 @@ public class VolController {
         mav.addObject("ville", ville);
         return mav;
     }
+
+    @Get
+    @Url(path = "booking")
+    public ModelAndView booking(@Param(name = "id") String id) throws SQLException, MismatchException {
+        ModelAndView mav = new ModelAndView("/WEB-INF/jsp/home.jsp?module=reservation.jsp");
+        Vol vol = GenericRepo.findById(id, Vol.class);
+        List<PrixVol> prix = GenericRepo.findWCond(PrixVol.class, "id_vol = '"+ id + "'");
+        mav.addObject("vol", vol);
+        mav.addObject("prix", prix);
+        return mav;
+    }
+
+    @Post
+    @Url(path = "booking")
+    public ModelAndView booking(@Param(name = "res") AjoutReservation res) throws SQLException, MismatchException {
+//        VolService.book(res);
+        ModelAndView mav = new ModelAndView("/WEB-INF/jsp/home.jsp?module=liste-reservation.jsp");
+        return mav;
+    }
 }

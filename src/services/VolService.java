@@ -1,7 +1,6 @@
 package services;
 
-import models.RechercheVol;
-import models.Vol;
+import models.*;
 import persistance.database.GenericRepo;
 import persistance.exception.MismatchException;
 
@@ -34,5 +33,41 @@ public class VolService {
         }
         List<Vol> vol = GenericRepo.findWCond(Vol.class, condition);
         return vol;
+    }
+
+    public static void book(AjoutReservation res) throws MismatchException, SQLException {
+        Reservation resa = new Reservation();
+        resa.setIdVol(res.getIdVol());
+        resa.setIdUtilisateur(res.getIdClient());
+        resa.setIdTypeSiege(res.getClasse());
+        resa.setPassportName(res.getFileNamepassport());
+        resa.setPassport(res.getBytespassport());
+        resa.setDateResa(res.getDateResa());
+
+        Vol v = GenericRepo.findById(res.getIdVol(), Vol.class);
+        List<PrixVol> prix = GenericRepo.findWCond(PrixVol.class, "id_vol = '"+ v.getId() + "'");
+
+        PromotionVol prom = null;
+        if (res.getClasse().equals("TSIEGE001")) {
+            if(v.getNbrEco() != 0 && v.getPromEco() != 0) {
+                resa.setPrix(prix.get(0).getPrix() - (prix.get(0).getPrix() * v.getPromEco() / 100));
+                prom = GenericRepo.findWCond(PromotionVol.class, "id_vol = '"+ v.getId() + "' AND id_type_siege = 'TSIEGE001'").get(0);
+                prom.setNbrPlace(prom.getNbrPlace()-1);
+            } else {
+                resa.setPrix(prix.get(0).getPrix());
+            }
+        } else {
+            if(v.getNbrEco() != 0 && v.getPromEco() != 0) {
+                resa.setPrix(prix.get(1).getPrix() - (prix.get(1).getPrix() * v.getPromBusi() / 100));
+                prom = GenericRepo.findWCond(PromotionVol.class, "id_vol = '"+ v.getId() + "' AND id_type_siege = 'TSIEGE002'").get(0);
+                prom.setNbrPlace(prom.getNbrPlace()-1);
+            } else {
+                resa.setPrix(prix.get(1).getPrix());
+            }
+        }
+        resa.setEtat(1);
+        GenericRepo.save(prom);
+        System.out.println(resa);
+        GenericRepo.save(resa);
     }
 }

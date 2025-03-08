@@ -3,6 +3,7 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Locale" %>
 <%@ page import="models.*" %>
+<%@ page import="itu.etu2779.annotation.auth.RoleType" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
@@ -59,7 +60,7 @@
             <label for="dateArrive" class="form-label">Date et heure d'arrivée:</label>
             <input type="datetime-local" class="form-control" id="dateArrive" name="rech.dateArrivee">
         </div>
-        <button type="submit" class="btn btn-avion">Rechercher</button>
+        <button type="submit" class="btn btn-confirmation">Rechercher</button>
     </form>
 </div>
 <div class="col-md-9">
@@ -142,28 +143,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h2>Promotions</h2>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">Economique</div>
-                        <div class="col-md-6 offset-6">Business</div>
-                    </div>
-                </div>
+
                 <div class="row mt-4">
                     <div class="row text-center">
-                        <h2>Promotion</h2>
+                        <h2>Promotions (place - %)</h2>
                     </div>
                     <div class="row">
                         <div class="col-md-6 text-center d-flex flex-column justify-content-center align-items-center">
-                            <h4><%=v.getNbrEco()%> à -<%=v.getPromEco()%></h4>
+                            <h4><%=v.getNbrEco()%> à -<%=v.getPromEco()%>%</h4>
                             <small>Economique</small>
                         </div>
                         <div class="col-md-6 text-center d-flex flex-column justify-content-center align-items-center">
-                            <h4><%=v.getNbrBusi()%> à <%=v.getPromBusi()%></h4>
+                            <h4><%=v.getNbrBusi()%> à -<%=v.getPromBusi()%>%</h4>
                             <small>Business</small>
                         </div>
                     </div>
@@ -184,14 +175,16 @@
                         </div>
                     </div>
                 </div>
-                <% if (u != null) { %>
-                <div class="position-absolute bottom-0 right-0 w-100 px-3 d-flex justify-content-end gap-4">
+                <div class="position-absolute bottom-0 right-0 w-100 px-3 mt-5 d-flex justify-content-end gap-4">
+                <% if (u != null && u.getRole() == RoleType.Admin) { %>
                     <a class="modification" href="${pageContext.request.contextPath}/update-vol?id=<%=v.getId()%>"><i
                             class="fa-solid fa-edit"></i></a>
                     <a class="modification" href="${pageContext.request.contextPath}/delete-vol?id=<%=v.getId()%>"><i
                             class="fa-solid fa-trash"></i></a>
-                </div>
+                <% } else if (u != null && u.getRole() == RoleType.Client) {%>
+                    <a href="${pageContext.request.contextPath}/booking?id=<%=v.getId()%>" ><button class="btn btn-avion" type="button">Réserver</button></a>
                 <% } %>
+                </div>
             </div>
         </div>
     </div>
